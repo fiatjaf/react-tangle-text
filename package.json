@@ -1,15 +1,14 @@
 {
-  "name": "react-tangle",
-  "version": "2.3.1",
+  "name": "react-tangle-text",
+  "version": "2.4.0",
   "description": "tangle.js style input elements for react",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js",
     "start": "watchify example/site.js -o example/bundle.js & st -nc"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:fiatjaf/react-tangle.git"
+    "url": "git@github.com:fiatjaf/react-tangle-text.git"
   },
   "keywords": [
     "react",
@@ -24,7 +23,7 @@
   ],
   "author": "Giovanni T. Parra",
   "license": "ISC",
-  "homepage": "https://github.com/fiatjaf/react-tangle",
+  "homepage": "https://github.com/fiatjaf/react-tangle-text",
   "devDependencies": {
     "browserify": "^6.1.0",
     "st": "^0.5.2",
@@ -33,5 +32,8 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
+  },
+  "dependencies": {
+    "react": "^16.2.0"
   }
 }

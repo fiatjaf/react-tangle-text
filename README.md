@@ -8,13 +8,13 @@ A [tangle.js](http://worrydream.com/Tangle/)-style numeric input for React.js.
 Install it from this GitHub repository directly:
 
 ```
-npm install --save fiatjaf/react-tangle
+npm install --save react-tangle-text
 ```
 
 then use it:
 
 ```js
-const TangleText = require('react-tangle')
+const TangleText = require('react-tangle-text')
 ```
 
 # api
@@ -47,7 +47,3 @@ Up/Down arrows increment the value by the step value.
 
 Pixel distance is the number of pixels the mouse has to travel before
 incrementing by `step`.
-
-## See Also
-
-* [react-number-editor](https://github.com/tleunen/react-number-editor)

@@ -1,47 +1,59 @@
-var React = require('react')
+const React = require('react')
 
-var TangleText = React.createClass({
-  componentWillMount: function () {
+module.exports = class TangleText extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.getProp = this.getProp.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onBlur = this.onBlur.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onDoubleClick = this.onDoubleClick.bind(this)
+
+    this.state = {
+      value: this.getProp('value')
+    }
+  }
+
+  componentWillMount () {
     this.__isMouseDown = false
-  },
+  }
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps (nextProps) {
     this.setState({ value: nextProps.value })
-  },
+  }
 
-  getInitialState: function () {
-    return { value: this.props.value }
-  },
-
-  bounds: function (num) {
-    num = Math.max(num, this.props.min)
-    num = Math.min(num, this.props.max)
+  bounds (num) {
+    num = Math.max(num, this.getProp('min'))
+    num = Math.min(num, this.getProp('max'))
     return num
-  },
+  }
 
-  onChange: function (e) {
+  onChange (e) {
     this.setState({ value: e.target.value })
-  },
+  }
 
-  onBlur: function (e) {
+  onBlur (e) {
     var parsed = parseFloat(this.state.value)
     if (isNaN(parsed)) {
-      this.setState({ value: this.props.value })
+      this.setState({ value: this.getProp('value') })
     } else {
-      this.props.onChange(this.bounds(parsed))
+      this.getProp('onChange')(this.bounds(parsed))
       this.setState({ value: this.bounds(parsed) })
     }
-  },
+  }
 
-  onMouseMove: function (e) {
-    var change = Math.floor((this.startX - e.screenX) / this.props.pixelDistance)
+  onMouseMove (e) {
+    var change = Math.floor((this.startX - e.screenX) / this.getProp('pixelDistance'))
     this.dragged = true
-    var value = this.bounds(this.startValue - (change * this.props.step))
+    var value = this.bounds(this.startValue - (change * this.getProp('step')))
     this.setState({ value: value })
-    this.props.onInput(value)
-  },
+    this.getProp('onInput')(value)
+  }
 
-  onMouseDown: function (e) {
+  onMouseDown (e) {
     // short circuit if currently editing number
     if (e.target === document.activeElement || e.button !== 0) return
     this.__isMouseDown = true
@@ -54,9 +66,9 @@ var TangleText = React.createClass({
 
     window.addEventListener('mousemove', this.onMouseMove)
     window.addEventListener('mouseup', this.onMouseUp)
-  },
+  }
 
-  onMouseUp: function (e) {
+  onMouseUp (e) {
     if (this.__isMouseDown) {
       e.preventDefault()
       window.removeEventListener('mousemove', this.onMouseMove)
@@ -64,69 +76,60 @@ var TangleText = React.createClass({
       if (this.dragged) this.onBlur()
       this.__isMouseDown = false
     }
-  },
+  }
 
-  onDoubleClick: function (e) {
+  onDoubleClick (e) {
     e.target.focus()
-  },
+  }
 
-  onKeyDown: function (e) {
+  onKeyDown (e) {
     var value
     if (e.which === 38) {
       // UP
       e.preventDefault()
-      value = this.state.value + this.props.step
+      value = this.state.value + this.getProp('step')
       this.setState({ value: value })
-      this.props.onInput(value)
+      this.getProp('onInput')(value)
     } else if (e.which === 40) {
       // DOWN
       e.preventDefault()
-      value = this.state.value - this.props.step
+      value = this.state.value - this.getProp('step')
       this.setState({ value: value })
-      this.props.onInput(value)
+      this.getProp('onInput')(value)
     } else if (e.which === 13) {
       // ENTER
       this.onBlur(e)
       e.target.blur()
     }
-  },
+  }
 
-  render: function () {
+  getProp (k) {
+    return this.props[k] === undefined ? defaultProps[k] : this.props[k]
+  }
+
+  render () {
     return (
       React.createElement('div', {}, [
         React.createElement('input', {
           key: '1',
-          className: this.props.className,
-          style: this.props.style,
-          disabled: this.props.disabled,
+          className: this.getProp('className'),
+          style: this.getProp('style'),
+          disabled: this.getProp('disabled'),
           type: 'text',
           onChange: this.onChange,
           onMouseDown: this.onMouseDown,
           onKeyDown: this.onKeyDown,
           onMouseUp: this.onMouseUp,
-          onDoubleClick: this.onDoubleClick,
+          onDoubleClick: this.onDoubleClick.bind(this),
           onBlur: this.onBlur,
-          value: this.props.format(this.state.value)
+          value: this.getProp('format')(this.state.value)
         })
       ])
     )
   }
-})
-
-TangleText.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  min: React.PropTypes.number,
-  max: React.PropTypes.number,
-  step: React.PropTypes.number,
-  pixelDistance: React.PropTypes.number,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-  onInput: React.PropTypes.func,
-  format: React.PropTypes.func
 }
 
-TangleText.defaultProps = {
+const defaultProps = {
   min: -Infinity,
   max: Infinity,
   step: 1,
@@ -144,5 +147,3 @@ TangleText.defaultProps = {
   format: function (x) { return x },
   onInput: function () { }
 }
-
-module.exports = TangleText
