@@ -1,6 +1,6 @@
 {
   "name": "react-tangle-text",
-  "version": "2.4.0",
+  "version": "2.4.2",
   "description": "tangle.js style input elements for react",
   "main": "index.js",
   "scripts": {
@@ -32,8 +32,5 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
-  },
-  "dependencies": {
-    "react": "^16.2.0"
   }
 }
