@@ -1,6 +1,6 @@
 {
   "name": "react-tangle-text",
-  "version": "2.4.3",
+  "version": "2.5.0",
   "description": "tangle.js style input elements for react",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "drag",
     "worrydream"
   ],
-  "author": "Giovanni T. Parra",
+  "author": "fiatjaf",
   "license": "ISC",
   "homepage": "https://github.com/fiatjaf/react-tangle-text",
   "devDependencies": {

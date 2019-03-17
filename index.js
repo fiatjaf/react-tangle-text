@@ -112,22 +112,20 @@ module.exports = class TangleText extends React.Component {
   }
 
   render() {
-    return React.createElement('div', {}, [
-      React.createElement('input', {
-        key: '1',
-        className: this.getProp('className'),
-        style: this.getProp('style'),
-        disabled: this.getProp('disabled'),
-        type: 'text',
-        onChange: this.onChange,
-        onMouseDown: this.onMouseDown,
-        onKeyDown: this.onKeyDown,
-        onMouseUp: this.onMouseUp,
-        onDoubleClick: this.onDoubleClick.bind(this),
-        onBlur: this.onBlur,
-        value: this.getProp('format')(this.state.value)
-      })
-    ])
+    return React.createElement('input', {
+      key: '1',
+      className: this.getProp('className'),
+      style: this.getProp('style'),
+      disabled: this.getProp('disabled'),
+      type: 'text',
+      onChange: this.onChange,
+      onMouseDown: this.onMouseDown,
+      onKeyDown: this.onKeyDown,
+      onMouseUp: this.onMouseUp,
+      onDoubleClick: this.onDoubleClick.bind(this),
+      onBlur: this.onBlur,
+      value: this.getProp('format')(this.state.value)
+    })
   }
 }
 
