@@ -26,7 +26,7 @@
   "homepage": "https://github.com/fiatjaf/react-tangle-text",
   "devDependencies": {
     "browserify": "^6.1.0",
-    "st": "^0.5.2",
+    "st": "^1.2.2",
     "watchify": "^2.0.0"
   },
   "peerDependencies": {
